@@ -1,0 +1,29 @@
+name: Newman Tests
+
+# Kör workflowen vid push eller pull request mot main-branchen
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  run-newman-tests:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v3
+
+      - name: Setup Node.js environment
+        uses: actions/setup-node@v3
+        with:
+          node-version: '16'
+
+      - name: Install Newman globally
+        run: npm install -g newman
+
+      - name: Run Newman tests
+        run: |
+          newman run "API Övningar - Shop API.postman_collection.json" \
+          -e "Shop API Environment.postman_environment.json"
