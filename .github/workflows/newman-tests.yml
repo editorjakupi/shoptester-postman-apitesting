@@ -22,7 +22,7 @@ jobs:
       - name: Set up .NET Core SDK
         uses: actions/setup-dotnet@v2
         with:
-          dotnet-version: '7.0.x'  # Ändra till den version du använder
+          dotnet-version: '9.0.x'
 
       - name: Set up Node.js
         uses: actions/setup-node@v1
@@ -70,7 +70,7 @@ jobs:
       - name: Set up .NET Core SDK
         uses: actions/setup-dotnet@v2
         with:
-          dotnet-version: '7.0.x'  # Ändra till den version du använder
+          dotnet-version: '9.0.x'
 
       - name: Set up Node.js
         uses: actions/setup-node@v1
