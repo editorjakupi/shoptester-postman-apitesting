@@ -1,0 +1,25 @@
+{
+  "name": "shoptester-main",
+  "version": "1.0.0",
+  "description": "A .NET Core Web API application for managing an online shop with products, categories, users, and orders.",
+  "homepage": "https://github.com/editorjakupi/shoptester-postman-apitesting#readme",
+  "bugs": {
+    "url": "https://github.com/editorjakupi/shoptester-postman-apitesting/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/editorjakupi/shoptester-postman-apitesting.git"
+  },
+  "license": "ISC",
+  "author": "",
+  "type": "commonjs",
+  "main": "index.js",
+  "scripts": {
+    "api-test": "newman run \"server/api-test/API Övningar - Shop API.postman_collection.json\" -e \"server/api-test/Shop API Environment.postman_environment.json\"",
+    "start": "node index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "devDependencies": {
+    "newman": "^5.3.2"
+  }
+}
