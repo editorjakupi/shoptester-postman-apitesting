@@ -12,6 +12,12 @@ jobs:
     steps:
       - name: Check out repository
         uses: actions/checkout@v2
+        with:
+          persist-credentials: true
+          submodules: false
+
+      - name: Configure Git Safe Directory
+        run: git config --global --add safe.directory /home/runner/work/shoptester-postman-apitesting/shoptester-postman-apitesting
 
       - name: Set up Node.js
         uses: actions/setup-node@v1
@@ -33,7 +39,15 @@ jobs:
         run: pwd
 
       - name: Run Newman API tests
-        run: npm run api-test
+        run: |
+          newman run "server/api-test/API Övningar - Shop API.postman_collection.json" \
+          -e "server/api-test/Shop API Environment.postman_environment.json"
+
+      - name: Debug git config
+        run: |
+          git config --list --show-origin
+          git status
+          ls -la
 
   cypress_tests:
     needs: api_tests
@@ -41,6 +55,12 @@ jobs:
     steps:
       - name: Check out repository
         uses: actions/checkout@v2
+        with:
+          persist-credentials: true
+          submodules: false
+
+      - name: Configure Git Safe Directory
+        run: git config --global --add safe.directory /home/runner/work/shoptester-postman-apitesting/shoptester-postman-apitesting
 
       - name: Set up Node.js
         uses: actions/setup-node@v1
