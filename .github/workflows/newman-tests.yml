@@ -17,7 +17,12 @@ jobs:
           submodules: false
 
       - name: Configure Git Safe Directory
-        run: git config --global --add safe.directory /home/runner/work/shoptester-postman-apitesting/shoptester-postman-apitesting
+        run: git config --global --add safe.directory "${{ github.workspace }}"
+
+      - name: Set up .NET Core SDK
+        uses: actions/setup-dotnet@v2
+        with:
+          dotnet-version: '7.0.x'  # Ändra till den version du använder
 
       - name: Set up Node.js
         uses: actions/setup-node@v1
@@ -27,15 +32,15 @@ jobs:
       - name: Install Newman globally
         run: npm install -g newman
 
-      - name: Install dependencies
+      - name: Install Node dependencies
         run: npm ci
 
-      - name: Start the server in background
+      - name: Start the .NET API server in background
         run: |
-          nohup npm run start &
+          dotnet run --project server/server.csproj &
           sleep 10
 
-      - name: Check absolute path (debugging step)
+      - name: Check absolute path (debugging)
         run: pwd
 
       - name: Run Newman API tests
@@ -60,19 +65,24 @@ jobs:
           submodules: false
 
       - name: Configure Git Safe Directory
-        run: git config --global --add safe.directory /home/runner/work/shoptester-postman-apitesting/shoptester-postman-apitesting
+        run: git config --global --add safe.directory "${{ github.workspace }}"
+
+      - name: Set up .NET Core SDK
+        uses: actions/setup-dotnet@v2
+        with:
+          dotnet-version: '7.0.x'  # Ändra till den version du använder
 
       - name: Set up Node.js
         uses: actions/setup-node@v1
         with:
           node-version: '20'
 
-      - name: Install dependencies for project
+      - name: Install Node dependencies
         run: npm ci
 
-      - name: Start the server in background
+      - name: Start the .NET API server in background
         run: |
-          nohup npm run start &
+          dotnet run --project server/server.csproj &
           sleep 10
 
       - name: Install Cypress dependencies
