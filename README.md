@@ -138,7 +138,7 @@ A .NET Core Web API application for managing an online shop with products, categ
 Detta repo innehåller ett Shop API, tillsammans med en Postman-collection och miljövariabler för att testa API:ets funktionalitet. Projektet fokuserar på:
 
 - **CRUD-operationer** för produkter, kategorier, användare och orders.
-- **Rollbaserad åtkomst** där vissa endpoints (t.ex. uppdatering/radering) kräver administratörsbehörighet.
+- **Rollbaserad åtkomst** där vissa endpoints (t.ex. uppdatering/radering) kräver administratörsbehörighet(Om ingen adminbehörighet finns då får man lämpligt meddelande tillbaka om unauthorized).
 - **Felhantering och validering** – vi testade scenario med felaktiga data, begränsad åtkomst samt dupliceringskontroller.
 - **Automatiserad testning** med Newman och GitHub Actions.
 
@@ -153,10 +153,16 @@ Detta repo innehåller ett Shop API, tillsammans med en Postman-collection och m
 
 ### Hur kör man testerna
 1. **Via Postman:**  
-   Importera både collection- och miljövariabelfilerna. Kör sedan testen i den ordning som visas i collectionen (observera att LoginAdmin bör ligga i början respektive DeleteLogIn` i slutet för att säkerställa att sessionen är aktiv under samtliga test som kräver administratörsbehörighet).
+   Importera både collection- och miljövariabelfilerna så att de finns i rotprjektet i mappen server/api-tests
 
-2. **Via Newman:**  
+2. **Via Newman:**
+   Först kör servern: dotnet run
    Använd följande kommando (se till att filvägar och filnamn är korrekta):
 
    bash
    newman run "API Övningar - Shop API.postman_collection.json" -e "Shop API Environment.postman_environment.json"
+
+3. **Via npm:**
+   Om package.json är konfigurerad vilken jag har gjort då kan man köra testerna enligt följande: 
+    1. Först kör servern: dotnet run
+    2. Sedan i en annan terminal i projektets path kör: npm run api-test
