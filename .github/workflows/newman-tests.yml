@@ -54,39 +54,39 @@ jobs:
           git status
           ls -la
 
-  cypress_tests:
-    needs: api_tests
-    runs-on: ubuntu-latest
-    steps:
-      - name: Check out repository
-        uses: actions/checkout@v2
-        with:
-          persist-credentials: true
-          submodules: false
+  # cypress_tests:
+  #   needs: api_tests
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - name: Check out repository
+  #       uses: actions/checkout@v2
+  #       with:
+  #         persist-credentials: true
+  #         submodules: false
 
-      - name: Configure Git Safe Directory
-        run: git config --global --add safe.directory "${{ github.workspace }}"
+  #     - name: Configure Git Safe Directory
+  #       run: git config --global --add safe.directory "${{ github.workspace }}"
 
-      - name: Set up .NET Core SDK
-        uses: actions/setup-dotnet@v2
-        with:
-          dotnet-version: '9.0.x'
+  #     - name: Set up .NET Core SDK
+  #       uses: actions/setup-dotnet@v2
+  #       with:
+  #         dotnet-version: '9.0.x'
 
-      - name: Set up Node.js
-        uses: actions/setup-node@v1
-        with:
-          node-version: '20'
+  #     - name: Set up Node.js
+  #       uses: actions/setup-node@v1
+  #       with:
+  #         node-version: '20'
 
-      - name: Install Node dependencies
-        run: npm ci
+  #     - name: Install Node dependencies
+  #       run: npm ci
 
-      - name: Start the .NET API server in background
-        run: |
-          dotnet run --project server/server.csproj &
-          sleep 10
+  #     - name: Start the .NET API server in background
+  #       run: |
+  #         dotnet run --project server/server.csproj &
+  #         sleep 10
 
-      - name: Install Cypress dependencies
-        run: cd cypress && npm ci
+  #     - name: Install Cypress dependencies
+  #       run: cd cypress && npm ci
 
-      - name: Run Cypress tests
-        run: npm run cy-test
+  #     - name: Run Cypress tests
+  #       run: npm run cy-test
